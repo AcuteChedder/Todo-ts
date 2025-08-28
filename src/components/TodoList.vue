@@ -4,17 +4,17 @@ import TodoTask from './TodoTask.vue';
 import axios from "axios"
 axios.defaults.baseURL = 'http://localhost:3000'
 
-const task = ref<string>('')
+const title = ref('')
 
 const addTask = async () => {
     try {
-        await axios.post('/add', {
-            task: task.value
+        await axios.post('/api/add', {
+            title: title.value
         })
         console.log('new task added')
     } catch (error) {
-        console.log(error.response.data.error)
-    }
+        console.log('Что-то на фронте', error)
+    }   
 }
 </script>
 
@@ -26,9 +26,9 @@ const addTask = async () => {
             <div class="todo__list">
                 <TodoTask />
             </div>
-
+            
             <div class="todo__create">
-                <input v-model="task" type="text" class="todo__create-input">
+                <input v-model="title" type="text" class="todo__create-input">
                 <button class="todo__create-btn" @click="addTask">Add</button>
             </div>
         </div>
